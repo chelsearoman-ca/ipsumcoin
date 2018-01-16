@@ -28,6 +28,7 @@
   "dependencies": {
     "node-sass": "^4.7.1",
     "react-copy-to-clipboard": "^5.0.1",
-    "react-lorem-component": "^0.12.2"
+    "react-lorem-component": "^0.12.2",
+    "react-scroll": "^1.7.6"
   }
 }
