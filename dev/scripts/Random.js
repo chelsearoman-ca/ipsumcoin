@@ -1,18 +1,22 @@
-
-const Copy = React.createClass({
-    getInitialState() {
-      return {value: '', copied: false};
-    },
+var React = require('react');
+var ReactDOM = require('react-dom');
+export default class Copy extends React.Component {
+    
+      constructor(props) {
+        super(props);
+        return {value: '', copied: false};
+        this.state = { copySuccess: '' }
+      }
   
   
     onChange({target: {value}}) {
       this.setState({value, copied: false});
-    },
+    }
   
   
     onCopy() {
       this.setState({copied: true});
-    },
+    }
   
   
     render() {
@@ -37,6 +41,5 @@ const Copy = React.createClass({
     }
   });
   
-  ReactDOM.render(<Copy/>, document.getElementById('container'));
+  ReactDOM.render(<App/>, document.getElementById('container'));
 
-export default Copy;

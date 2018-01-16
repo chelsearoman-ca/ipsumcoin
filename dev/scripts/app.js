@@ -1,15 +1,23 @@
 var React = require('react');
 var ReactDOM = require ('react-dom');
 var Lorem = require('react-lorem-component');
-// import ParagraphNum from './Random';
+import Copy from './Random';
 
 class App extends React.Component {
     constructor(props) {
       super(props);
       this.state = {value: ''};
-  
       this.handleChange = this.handleChange.bind(this);
     }
+
+    // copyToClipboard = (e) => {
+    //   this.textArea.select();
+    //   document.execCommand('copy');
+    //   // This is just personal preference.
+    //   // I prefer to not show the the whole text area selected.
+    //   e.target.focus();
+    //   this.setState({ copySuccess: 'Copied!' });
+    // };
   
     handleChange(event) {
       this.setState({value: event.target.value});
@@ -33,8 +41,13 @@ class App extends React.Component {
             </select>
             </label>
         </form>
-          <div className="container" id="container">
-              <Lorem count={this.state.value} words= {ipsumCoin.article.sentences} sentenceUpperBound={4} paragraphUpperBound={1}/>
+        document.queryCommandSupported('copy') &&
+              <div>
+                <button onClick={this.copyToClipboard}>Copy</button> 
+                {this.state.copySuccess}
+              </div>
+          <div className="container" id="container"  ref={(textarea) => this.textArea = textarea}>
+              <Lorem count={this.state.value} words= {ipsumCoin.article.sentences} sentenceUpperBound={4} paragraphUpperBound={1} ref={(textarea) => this.textArea = textarea}/>
           </div>
         </div>
        
