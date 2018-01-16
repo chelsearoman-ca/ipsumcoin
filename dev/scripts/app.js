@@ -1,53 +1,51 @@
 var React = require('react');
 var ReactDOM = require ('react-dom');
 var Lorem = require('react-lorem-component');
-import Copy from './Random';
+
 
 class App extends React.Component {
     constructor(props) {
       super(props);
-      this.state = {value: ''};
+      this.state = {value: '1'};
+      this.state = {seed: 42};
       this.handleChange = this.handleChange.bind(this);
     }
 
-    // copyToClipboard = (e) => {
-    //   this.textArea.select();
-    //   document.execCommand('copy');
-    //   // This is just personal preference.
-    //   // I prefer to not show the the whole text area selected.
-    //   e.target.focus();
-    //   this.setState({ copySuccess: 'Copied!' });
-    // };
-  
     handleChange(event) {
       this.setState({value: event.target.value});
       console.log("this handle change");
     }
-  
+    handleClick(e) {
+      e.preventDefault();
+      this.setState({ seed: Math.floor(Math.random() * 10000 ) });
+    }
   
     render() {
       return (
-        <div>
+        <div className="coin-basse">
+          <h1>IpsumCoin</h1>
+          <div className="customer-questions">
+          <h2>Do you have a new coin on the market?</h2>
+          <h2>Not ready to fill in your <span>About</span> section yet?</h2>
+          <h2>Look no further than IpsumCoin</h2>
+
+          </div>
           <form>
             <label>
-            Pick your favorite La Croix flavor:
-              <select value={this.state.value} onChange={(event)=>{this.handleChange(event)}}>
+            <h3>Select a Number of paragraphs</h3>
+            <select value={this.state.value} onChange={(event)=>{this.handleChange(event)}}>
                 <option value={1}>1</option>
                 <option value={2}>2</option>
                 <option value={3}>3</option>
                 <option value={4}>4</option>
                 <option value={5}>5</option>
                 <option value={6}>6</option>
-            </select>
+            </select>  
+            <button onClick={(e)=>{this.handleClick(e)}}>Randomize Text</button>
             </label>
         </form>
-        document.queryCommandSupported('copy') &&
-              <div>
-                <button onClick={this.copyToClipboard}>Copy</button> 
-                {this.state.copySuccess}
-              </div>
-          <div className="container" id="container"  ref={(textarea) => this.textArea = textarea}>
-              <Lorem count={this.state.value} words= {ipsumCoin.article.sentences} sentenceUpperBound={4} paragraphUpperBound={1} ref={(textarea) => this.textArea = textarea}/>
+          <div className="container" id="container" >
+              <Lorem count={this.state.value} words= {ipsumCoin.article.sentences} sentenceUpperBound={4} paragraphUpperBound={1} seed={this.state.seed} className="box"/>
           </div>
         </div>
        
@@ -55,6 +53,20 @@ class App extends React.Component {
     }
   }
 
+  function updateTransition() {
+    var el = document.querySelector("div.box");
+     
+    if (el) {
+      el.className = "box1";
+    } else {
+      el = document.querySelector("div.box1");
+      el.className = "box";
+    }
+     
+    return el;
+  }
+  
+  var intervalID = window.setInterval(updateTransition, 7000);
 
 const ipsumCoin = {
   article: {
